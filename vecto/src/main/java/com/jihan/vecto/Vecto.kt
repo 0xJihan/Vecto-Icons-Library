@@ -6,4 +6,3 @@ package com.jihan.vecto
     val Filled = _VectoFilledIcons
     val Outlined = _VectoOutlinedIcons
 }
-
