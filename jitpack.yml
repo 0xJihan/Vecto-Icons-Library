@@ -1,2 +1,5 @@
 jdk:
-  - openjdk21
+  - openjdk11
+before_install:
+  - echo "kotlin.daemon.jvmargs=-Xmx4g" >> gradle.properties
+  - echo "org.gradle.jvmargs=-Xmx4g -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError" >> gradle.properties
