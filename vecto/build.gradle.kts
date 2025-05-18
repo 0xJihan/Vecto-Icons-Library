@@ -45,7 +45,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.0xJihan"
             artifactId = "vecto"
-            version = "1.0.0"
+            version = "1.1.1"
 
             afterEvaluate {
                 from(components["release"])
