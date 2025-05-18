@@ -1,9 +1,9 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
     id("maven-publish")
+
 }
 
 android {
@@ -12,6 +12,7 @@ android {
 
     defaultConfig {
         minSdk = 21
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -25,43 +26,22 @@ android {
             )
         }
     }
-
-    // Improve build performance
-    buildFeatures {
-        compose = true
-    }
-
-
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-
     kotlinOptions {
         jvmTarget = "11"
-        // Add options to reduce memory pressure
-        freeCompilerArgs = listOf(
-            "-Xopt-in=kotlin.RequiresOptIn",
-            "-Xjvm-default=all",
-            // Split compilation for large files
-            "-Xbackend-threads=0"
-        )
     }
-
-    // Prevent Gradle from running parallel kotlin compilation within the module
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
-        }
+    buildFeatures{
+        compose = true
     }
 }
 
 dependencies {
-    implementation(libs.material)
-    implementation(libs.androidx.ui.graphics)
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.material3)
 }
 
 publishing {
@@ -69,7 +49,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.0xJihan"
             artifactId = "vecto"
-            version = "1.1.1"
+            version = "1.0.0"
 
             afterEvaluate {
                 from(components["release"])
